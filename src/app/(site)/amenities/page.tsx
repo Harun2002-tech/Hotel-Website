@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { useState } from "react";
 import { Clock, Users, Dumbbell, Waves, Sparkles, UtensilsCrossed } from "lucide-react";
 import { useLocale } from "@/context/LocaleContext";
@@ -29,9 +29,9 @@ const menuItems = {
 };
 
 const events = [
-  { name: "Grand Ballroom", capacity: 500, image: "https://images.unsplash.com/photo-1519167758481-83f29da8c2f2?w=800&q=80" },
-  { name: "Executive Meeting Rooms", capacity: 30, image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" },
-  { name: "Conference Center", capacity: 200, image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" },
+  { name: "Grand Ballroom", capacity: 500, image: "https://images.unsplash.com/photo-1519167758481-83f29da8c2f2" },
+  { name: "Executive Meeting Rooms", capacity: 30, image: "https://images.unsplash.com/photo-1497366216548-37526070297c" },
+  { name: "Conference Center", capacity: 200, image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87" },
 ];
 
 export default function AmenitiesPage() {
@@ -52,8 +52,8 @@ export default function AmenitiesPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 rounded-2xl overflow-hidden animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <Image
-              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80"
+            <SafeImage
+              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
               alt="Restaurant"
               fill
               className="object-cover"
@@ -112,13 +112,13 @@ export default function AmenitiesPage() {
           <h2 className="font-display text-3xl font-bold text-navy-900 text-center mb-12">{t("leisure")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: Dumbbell, title: t("gym"), hours: "5:00 AM - 11:00 PM", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" },
-              { icon: Waves, title: t("pool"), hours: "6:00 AM - 9:00 PM", image: "https://images.unsplash.com/photo-1575429198097-0413ec0e3f8e?w=600&q=80" },
-              { icon: Sparkles, title: t("spa"), hours: "9:00 AM - 9:00 PM", image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" },
+              { icon: Dumbbell, title: t("gym"), hours: "5:00 AM - 11:00 PM", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48" },
+              { icon: Waves, title: t("pool"), hours: "6:00 AM - 9:00 PM", image: "https://images.unsplash.com/photo-1575429198097-0413ec0e3f8e" },
+              { icon: Sparkles, title: t("spa"), hours: "9:00 AM - 9:00 PM", image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874" },
             ].map((facility, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-lg animate-fade-in" style={{ animationDelay: `${i * 120}ms` }}>
                 <div className="relative h-48">
-                  <Image src={facility.image} alt={facility.title} fill className="object-cover" sizes="33vw" />
+                  <SafeImage src={facility.image} alt={facility.title} fill className="object-cover" sizes="33vw" />
                 </div>
                 <div className="p-6">
                   <facility.icon className="w-8 h-8 text-gold-500 mb-3" />
@@ -142,7 +142,7 @@ export default function AmenitiesPage() {
           {events.map((event, i) => (
             <div key={i} className="group rounded-2xl overflow-hidden shadow-lg animate-slide-up" style={{ animationDelay: `${i * 120}ms` }}>
               <div className="relative h-56">
-                <Image src={event.image} alt={event.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="33vw" />
+                <SafeImage src={event.image} alt={event.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="33vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <h3 className="font-display text-xl font-bold text-white mb-2">{event.name}</h3>
@@ -158,3 +158,4 @@ export default function AmenitiesPage() {
     </div>
   );
 }
+

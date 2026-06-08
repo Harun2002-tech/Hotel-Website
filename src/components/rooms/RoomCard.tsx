@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { Wifi, Wind, Tv, Coffee, DoorOpen, Shield } from "lucide-react";
 import { Room } from "@/lib/types";
@@ -28,7 +28,7 @@ export function RoomCard({ room, showGallery = false }: RoomCardProps) {
   return (
     <article className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 animate-fade-in" style={{ animationDelay: "0.1s" }}>
       <div className="relative h-64 overflow-hidden">
-        <Image
+        <SafeImage
           src={room.images[0]}
           alt={room.name[locale]}
           fill
@@ -78,7 +78,7 @@ export function RoomCard({ room, showGallery = false }: RoomCardProps) {
           <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
             {room.images.map((img, i) => (
               <div key={i} className="relative w-20 h-16 rounded-lg overflow-hidden shrink-0">
-                <Image src={img} alt={`${room.name[locale]} ${i + 1}`} fill className="object-cover" sizes="80px" />
+                <SafeImage src={img} alt={`${room.name[locale]} ${i + 1}`} fill className="object-cover" sizes="80px" />
               </div>
             ))}
           </div>

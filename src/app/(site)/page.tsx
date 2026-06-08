@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { Dumbbell, Waves, Utensils, Sparkles } from "lucide-react";
 import { Hero } from "@/components/home/Hero";
@@ -10,22 +10,22 @@ const amenityHighlights = [
   {
     icon: Utensils,
     title: { en: "Fine Dining", am: "ጥሩ ምግብ", fr: "Gastronomie", ar: "مطعم فاخر" },
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0",
   },
   {
     icon: Waves,
     title: { en: "Swimming Pool", am: "የዋና ገንዳ", fr: "Piscine", ar: "حمام سباحة" },
-    image: "https://images.unsplash.com/photo-1575429198097-0413ec0e3f8e?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1575429198097-0413ec0e3f8e",
   },
   {
     icon: Sparkles,
     title: { en: "Spa & Wellness", am: "ስፓ", fr: "Spa", ar: "سبا" },
-    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874",
   },
   {
     icon: Dumbbell,
     title: { en: "Fitness Center", am: "ጂም", fr: "Fitness", ar: "صالة رياضية" },
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48",
   },
 ];
 
@@ -82,7 +82,7 @@ export default function HomePage() {
                 className="group relative h-72 rounded-2xl overflow-hidden animate-fade-in"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
-                <Image
+                <SafeImage
                   src={item.image}
                   alt={item.title.en}
                   fill
@@ -121,3 +121,4 @@ export default function HomePage() {
     </>
   );
 }
+
