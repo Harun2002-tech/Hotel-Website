@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { Wifi, Wind, Tv, Coffee, DoorOpen, Shield } from "lucide-react";
@@ -7,6 +8,8 @@ import { Room } from "@/lib/types";
 import { useLocale } from "@/context/LocaleContext";
 import { amenityLabels } from "@/lib/data/rooms";
 import { Button } from "@/components/ui/Button";
+
+const easeOut = [0.22, 1, 0.36, 1] as const;
 
 const amenityIcons: Record<string, React.ReactNode> = {
   wifi: <Wifi className="w-4 h-4" />,
@@ -26,18 +29,31 @@ export function RoomCard({ room, showGallery = false }: RoomCardProps) {
   const { locale, t } = useLocale();
 
   return (
-    <article className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-      <div className="relative h-64 overflow-hidden">
+    <motion.article
+      className="group bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: easeOut }}
+      whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)" }}
+    >
+      <div className="relative h-64 overflow-hidden group/image">
         <SafeImage
           src={room.images[0]}
           alt={room.name[locale]}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          className="object-cover transition-transform duration-500 ease-out will-change-transform group-hover/image:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        <div className="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+        <motion.div
+          className="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
+          initial={{ x: 20, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.3 }}
+        >
           {room.size}
-        </div>
+        </motion.div>
       </div>
 
       <div className="p-6">
@@ -64,30 +80,37 @@ export function RoomCard({ room, showGallery = false }: RoomCardProps) {
 
         <div className="flex flex-wrap gap-2 mb-4">
           {room.amenities.slice(0, 5).map((amenity) => (
-            <span
+            <motion.span
               key={amenity}
               className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-navy-50 text-navy-700 rounded-full text-xs"
+              whileHover={{ scale: 1.05, backgroundColor: "rgb(212, 130, 42, 0.1)" }}
             >
               {amenityIcons[amenity]}
               {amenityLabels[amenity]?.[locale] ?? amenity}
-            </span>
+            </motion.span>
           ))}
         </div>
 
         {showGallery && room.images.length > 1 && (
           <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
             {room.images.map((img, i) => (
-              <div key={i} className="relative w-20 h-16 rounded-lg overflow-hidden shrink-0">
+              <motion.div
+                key={i}
+                className="relative w-20 h-16 rounded-lg overflow-hidden shrink-0"
+                whileHover={{ scale: 1.1, zIndex: 10 }}
+              >
                 <SafeImage src={img} alt={`${room.name[locale]} ${i + 1}`} fill className="object-cover" sizes="80px" />
-              </div>
+              </motion.div>
             ))}
           </div>
         )}
 
-        <Link href={`/booking?room=${room.id}`}>
-          <Button className="w-full">{t("bookThisRoom")}</Button>
-        </Link>
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          <Link href={`/booking?room=${room.id}`}>
+            <Button className="w-full">{t("bookThisRoom")}</Button>
+          </Link>
+        </motion.div>
       </div>
-    </article>
+    </motion.article>
   );
 }
